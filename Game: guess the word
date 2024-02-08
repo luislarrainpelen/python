@@ -1,0 +1,45 @@
+# Proyecto juego adivinar letras de una palabra
+
+import random
+import string
+
+world_of_words = ['apple','kiwi', 'banana', 'cherry']
+random_word = random.choice(world_of_words).upper()
+
+word_letters = set(random_word)
+
+alphabet = set(string.ascii_uppercase)
+
+used_letters = set() 
+
+lives = 6
+
+# input del usuario
+while len(word_letters) > 0 and lives > 0:
+  print('Tienes',lives, 'vidas y Has usado estas letras: ', ' '.join(used_letters))
+
+  # letra si la letra está en used letters sino (else) un guión - , para cada letra en 
+  #random_word
+  word_list = [letter if letter in used_letters else '-' for letter in random_word]
+  print('Palabra actual: ', ' '.join(word_list))
+  
+  user_letter = input('Adivina una letra de la palabra:').upper()
+  if user_letter in alphabet - used_letters:
+    used_letters.add(user_letter)
+    if user_letter in word_letters:
+      word_letters.remove(user_letter)
+      print('')
+    else:
+      lives = lives -1 # quitar una vida si no está la letra
+      print('La letra no está en la palabra. Perdiste una vida ;(')
+      
+  elif user_letter in used_letters:
+      print('Ya usaste esa letra, intenta con otra')
+  else:
+    print('Esa letra no es valida')
+
+if lives == 0:
+  print('Perdiste, no te quedan vidas la palabra era', random_word)
+else:
+  print('Felicidades, adivinaste la palabra', random_word)
+
