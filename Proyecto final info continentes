@@ -1,0 +1,32 @@
+import read_csv 
+
+import charts
+
+
+def run():
+  data = read_csv.read_csv('./app/data.csv')
+  user_continent = input('Which continent would you like to know more?')
+  
+  user_data = list(filter(lambda x: x['Continent'] == user_continent, data))
+  
+  countries = list(map(lambda x: x['Country/Territory'], user_data))
+  
+  user_info = input('What do you want to know? Population or Area? (P/A) -> ')
+  
+  
+  if user_info.upper() == "P":
+    data_poblacion = list(map(lambda x: x['World Population Percentage'], user_data))
+
+    charts.generate_pie_chart(countries, data_poblacion)
+  
+  elif user_info.upper() == "A":
+    data_area = list(map(lambda x: x['Area (km²)'], user_data))
+    
+    charts.generate_pie_chart(countries, data_area)
+  
+  else:
+    print('Invalid option')
+
+if __name__ == '__main__':
+  run()
+
