@@ -1,3 +1,5 @@
+## Proyecto curso comprehensions, funciones y errores
+
 import read_csv 
 
 import charts
@@ -15,13 +17,15 @@ def run():
   
   
   if user_info.upper() == "P":
-    data_poblacion = list(map(lambda x: x['World Population Percentage'], user_data))
-
+    data_poblacion = list(map(lambda x: x['2022 Population'], user_data))
+    suma = sum(list(map(int, data_poblacion)))
+    print('Total 2022 population of ', user_continent, ' is -> ', suma , 'humans')
     charts.generate_pie_chart(countries, data_poblacion)
   
   elif user_info.upper() == "A":
     data_area = list(map(lambda x: x['Area (km²)'], user_data))
-    
+    suma = sum(list(map(int, data_area)))
+    print('Total area of ', user_continent, ' is -> ', suma , 'km²')
     charts.generate_pie_chart(countries, data_area)
   
   else:
@@ -29,4 +33,3 @@ def run():
 
 if __name__ == '__main__':
   run()
-
